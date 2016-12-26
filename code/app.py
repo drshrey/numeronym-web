@@ -25,7 +25,14 @@ class N7mH5r(tornado.web.RequestHandler):
                 pass
 
             print "Numeronyming query: {}".format(q3y)
-            o4t = c7r.encode(q3y)
+            s3t = q3y.split(' ')
+            o4t = ''
+            for word in s3t:
+                try:
+                    o4t += c7r.encode(word) + ' '
+                except Exception:
+                    o4t += word + ' '
+
             print "O4t: {}".format(o4t)
             self.write(json.dumps(dict(o4t=o4t)))
         else:
