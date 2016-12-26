@@ -8,15 +8,28 @@ c7r = Numeronym()
 
 class H2eH5r(tornado.web.RequestHandler):
     def get(self):
+        print "Returning index page!"
         self.render(
             'i3x.html'
         )
 
 class N7mH5r(tornado.web.RequestHandler):
     def post(self):
-        q3y = self.request.arguments['query'][0]
-        o4t = c7r.encode(q3y)
-        self.write(json.dumps(dict(o4t=o4t)))
+        if self.request.arguments['q3y'] is not None and len(self.request.arguments) > 0:
+            q3y = self.request.arguments['q3y'][0]
+            # handle integer
+            try:
+                int(q3y)
+                return self.write(json.dumps(dict(o4t="no #s or symbols")))                
+            except ValueError:
+                pass
+
+            print "Numeronyming query: {}".format(q3y)
+            o4t = c7r.encode(q3y)
+            print "O4t: {}".format(o4t)
+            self.write(json.dumps(dict(o4t=o4t)))
+        else:
+            self.write()
 
 
 p2t = 7777

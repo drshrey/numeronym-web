@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>H2e P2e</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script type="text/javascript" src="static/jquery-2.2.4.min.js"></script>
+    </head>
+    <body style="text-align: center; margin-top: 12%; background-color:azure;">   
+        <form id="numeronym-form">
+            <input type="text" id="numeronym-query" placeholder="Create numeronym" type="submit" style="outline: none; border: none; font-size: 80px; font-weight: 600; width: 80%; font-family: 'Avenir Next'; background-color:azure;">
+            <div id="numeronym-answer" style="font-style: bold;font-size: 130px; font-weight: 600; margin-top: 20px; font-family: 'Avenir Next';"></div>
+            <div id="sentiment-emoji" style="font-size: 100px;"></div>
+        </form>
+    </body>
+    <script type="text/javascript">
+        var goodItems = ['😻', '🙇', '✅', '✊', '🚀', '☺', '🏄', '🏆', '👌', '👏', '👑', '💯💯💯']
+        var badItems = ['😡', '😞', '🚨', '🚭', '☝', '👮', '👿', '💀', '💔', '💩']
+        $("#numeronym-form").submit(function(event){
+            event.preventDefault()
+            $.ajax({
+                type: "POST",
+                url: '/api/numeronym',
+                dataType: 'json',
+                async: false,
+                //json object to sent to the authentication url
+                data: { 'q3y': $("#numeronym-query").val() },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {                   
+                    console.log(textStatus)
+                    console.log(errorThrown)
+                    console.log("ERror")
+                },                
+                success: function(d2a) {
+                    $("#numeronym-answer").text(d2a.o4t)                         
+                    if(d2a.o4t == "no #s or symbols"){                     
+                        var item = badItems[Math.floor(Math.random()*badItems.length)];                                                    
+                        $("#sentiment-emoji").text(item)    
+                    } else {                                           
+                        var item = goodItems[Math.floor(Math.random()*goodItems.length)];                                                                            
+                        $("#sentiment-emoji").text(item)
+                    }
+                }
+            })
+        })
+    </script>
+</html>
