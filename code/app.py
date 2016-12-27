@@ -24,9 +24,10 @@ class N7mH5r(tornado.web.RequestHandler):
             except ValueError:
                 pass
 
-            print "Numeronyming query: {}".format(q3y)
+            print "Numeronym-ing query: {}".format(q3y)
             s3t = q3y.split(' ')
             o4t = ''
+            
             for word in s3t:
                 try:
                     o4t += c7r.encode(word) + ' '
